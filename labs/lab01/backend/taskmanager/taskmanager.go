@@ -22,7 +22,7 @@ type Task struct {
 
 // TaskManager manages a collection of tasks
 type TaskManager struct {
-	tasks  map[int]Task
+	tasks  map[int]*Task
 	nextID int
 }
 
@@ -54,7 +54,7 @@ func (tm *TaskManager) AddTask(title, description string) (*Task, error) {
 // UpdateTask updates an existing task, returns an error if the title is empty or the task is not found
 func (tm *TaskManager) UpdateTask(id int, title, description string, done bool) error {
 	if id < 0 {
-		return ErrInvalidID
+		return ErrTaskNotFound
 	}
 
 	task, exists := tm.tasks[id]
@@ -74,7 +74,7 @@ func (tm *TaskManager) UpdateTask(id int, title, description string, done bool) 
 // DeleteTask removes a task from the manager, returns an error if the task is not found
 func (tm *TaskManager) DeleteTask(id int) error {
 	if id < 0 {
-		return ErrInvalidID
+		return ErrTaskNotFound
 	}
 
 	_, exists := tm.tasks[id]
@@ -90,7 +90,7 @@ func (tm *TaskManager) DeleteTask(id int) error {
 // GetTask retrieves a task by ID
 func (tm *TaskManager) GetTask(id int) (*Task, error) {
 	if id < 0 {
-		return nil, ErrInvalidID
+		return nil, ErrTaskNotFound
 	}
 
 	task, exists := tm.tasks[id]

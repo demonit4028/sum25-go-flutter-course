@@ -14,6 +14,23 @@ class ProfileCard extends StatelessWidget {
     this.avatarUrl,
   });
 
+  Widget _buildAvatar(BuildContext context) {
+    final bool hasAvatar = avatarUrl != null && avatarUrl!.isNotEmpty;
+
+    return CircleAvatar(
+      radius: 40,
+      backgroundColor: Colors.grey[200],
+      backgroundImage: hasAvatar ? NetworkImage(avatarUrl!) : null,
+      onBackgroundImageError: hasAvatar ? (exception, stackTrace) {} : null,
+      child: !hasAvatar
+          ? Text(
+              name.isNotEmpty ? name[0].toUpperCase() : '?',
+              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            )
+          : null,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -22,41 +39,7 @@ class ProfileCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (avatarUrl != null)
-              CircleAvatar(
-                radius: 40,
-                backgroundColor: Colors.grey[200],
-                child: ClipOval(
-                  child: Image.network(
-                    avatarUrl!,
-                    width: 80,
-                    height: 80,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) {
-                      return CircleAvatar(
-                        child: Text(
-                          name.isNotEmpty ? name[0].toUpperCase() : '?',
-                          style: TextStyle(fontSize: 24),
-                        ),
-                        radius: 40,
-                      );
-                    },
-                    loadingBuilder: (context, child, loadingProgress) {
-                      if (loadingProgress == null) return child;
-                      return const CircularProgressIndicator();
-                    },
-                  ),
-                ),
-              )
-
-            else 
-              CircleAvatar(
-                child: Text(
-                  name.isNotEmpty ? name[0].toUpperCase() : '?',
-                  style: TextStyle(fontSize: 24),
-                ),
-                radius: 40,
-              ),
+            _buildAvatar(context),
             SizedBox(height: 10),
             Text(
               name,
@@ -65,7 +48,7 @@ class ProfileCard extends StatelessWidget {
             SizedBox(height: 5),
             Text(
               email,
-              style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+              style: TextStyle(fontSize: 16, color: Colors.grey),
             ),
             SizedBox(height: 5),
             Text(

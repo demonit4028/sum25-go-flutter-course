@@ -20,7 +20,7 @@ type User struct {
 	Email string
 }
 
-// NewUser creates a new user with validation
+// NewUser creates a new user with validation, returns an error if the user is not valid
 func NewUser(name string, age int, email string) (*User, error) {
 
 	user := &User{
@@ -43,7 +43,7 @@ func (u *User) Validate() error {
 	}
 
 	if u.Name == "" {
-		return ErrEmptyName
+		return ErrInvalidName
 	}
 
 	return nil
@@ -51,14 +51,8 @@ func (u *User) Validate() error {
 
 // String returns a string representation of the user, formatted as "Name: <name>, Age: <age>, Email: <email>"
 func (u *User) String() string {
-	str := u.Name + " " + strconv.Itoa(u.Age) + " " + u.Email
+	str := "Name: " + u.Name + ", Age: " + strconv.Itoa(u.Age) + ", Email: " + u.Email
 	return str
-}
-
-// NewUser creates a new user with validation, returns an error if the user is not valid
-func NewUser(name string, age int, email string) (*User, error) {
-	// TODO: Implement this function
-	return nil, nil
 }
 
 // IsValidEmail checks if the email format is valid

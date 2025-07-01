@@ -60,29 +60,12 @@ class MyHomePage extends StatelessWidget {
         ),
         body: const TabBarView(
           children: [
-            const Text(
-              'Profile Card Example',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8),
             const ProfileCard(
               name: 'Billy Herrington',
               email: 'dungeon@master.com',
               age: 48,
               // avatarUrl: null,
               avatarUrl: 'https://images.steamusercontent.com/ugc/1496838058102899253/220A052C564C4C5A26CF88D7F9205BF5FB579B82/?imw=637&imh=358&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true',
-            ),
-            const SizedBox(height: 24),
-            const Text(
-              'Counter App Example',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8),
-            const CounterApp(),
-            const SizedBox(height: 24),
-            const Text(
-              'Registration Form Example',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             CounterApp(),
             RegistrationForm(),
