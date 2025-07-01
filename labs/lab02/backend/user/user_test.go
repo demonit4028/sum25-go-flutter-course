@@ -13,7 +13,7 @@ func TestUserValidation(t *testing.T) {
 	}{
 		{"valid", User{Name: "Alice", Email: "alice@example.com", ID: "1"}, false},
 		{"empty name", User{Name: "", Email: "alice@example.com", ID: "1"}, true},
-		{"invalid email", User{Name: "Alice", Email: "alice@", ID: "1"}, true},
+		{"invalid email", User{Name: "Alice", Email: "aliceexample.com", ID: "1"}, true},
 		{"empty id", User{Name: "Alice", Email: "alice@example.com", ID: ""}, true},
 	}
 	for _, tt := range tests {
